@@ -4,21 +4,17 @@ namespace CustomContentConnectorExample.Api;
 
 public static class ContentApi
 {
-    /// <summary>
-    /// <para>This request will be called by Templafy when the user uses the Connector.</para>
-    /// <para>Templafy will call this Endpoint and pass the bearer token in the "Authorization" header.</para>
-    /// </summary>
-    /// <param name="request">The URL query parameters Templafy is sending for this request are deconstructed on lines 16-21.The <b>search</b> parameter is optional/ nullable
-    /// and is only populated when the user is searching for a keyword.</param>
-    /// <returns><para>All the values returned <b>are case sensitive</b></para></returns>
     public static IResult HandleContentRequest(HttpRequest request)
     {
         var query = request.Query;
+        var headers = request.Headers;
         var skip = int.Parse(query["skip"]);
         var limit = int.Parse(query["limit"]);
         var contentType = query["contentType"];
         var search = query["search"];
         var parentId = query["parentId"];
+
+        var templafyUser = headers["x-TemplafyUser"];
 
         if (IsAuthorized(request) && contentType == "image")
         {
@@ -28,19 +24,18 @@ public static class ContentApi
                 .ToList();
 
             var filteredEntries = entriesOnCurrentLevel.Skip(skip).Take(limit).ToList();
-            
+
             var assets = new List<Asset>();
             foreach (var fileInfo in filteredEntries)
             {
-                var asset = new Asset
+                assets.Add(new Asset
                 {
                     Id = fileInfo.Name,
                     MimeType = GetMimeType(fileInfo),
                     Name = fileInfo.Name,
                     PreviewUrl = $"{request.Scheme}://{request.Host}/download-asset/{fileInfo.Name}",
                     Tags = "placeholder tag, other tag"
-                };
-                assets.Add(asset);
+                });
             }
 
             return Results.Ok(new ContentResponse
@@ -54,12 +49,6 @@ public static class ContentApi
         return Results.Unauthorized();
     }
 
-    /// <summary>
-    /// This endpoint will be called by Templafy when the users interacts with an Asset(ex: clicks the asset in order to insert it into a document)
-    /// </summary>
-    /// <param name="request"></param>
-    /// <param name="assetId">The Id of the asset</param>
-    /// <returns></returns>
     public static IResult HandleDownloadUrlRequest(HttpRequest request, string assetId)
     {
         return Results.Ok(new DownloadUrlResponse
@@ -79,7 +68,7 @@ public static class ContentApi
     {
         var authorizationHeader = request.Headers.Authorization;
 
-        // Since the value of this header is formatted as "Bearer <token>" we need to split it by space
+        // Since the value of this header is formatted as "Bearer {token}" we need to split it by space
         var authorizationHeaderParts = authorizationHeader.ToString().Split(' ');
 
         var authorizationHeaderSchema = authorizationHeaderParts[0];

@@ -2,14 +2,6 @@ namespace CustomContentConnectorExample.Api;
 
 public static class UserApi
 {
-    /// <summary>
-    /// <para>This endpoint will be called once the user presses the "Login" button in the form rendered by the <see cref="AuthorizationApi.RenderAuthorizationForm"/>
-    /// during the OAuth2 Authorization code or PKCE flows</para>
-    ///
-    /// <para>This part should be implemented by the implementer of the API in a secure manner.</para>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
     public static IResult HandleUserLogin(HttpRequest request)
     {
         var bodyForm = request.Form;

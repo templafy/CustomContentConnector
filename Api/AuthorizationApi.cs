@@ -4,19 +4,6 @@ namespace CustomContentConnectorExample.Api;
 
 public static class AuthorizationApi
 {
-    /// <summary>
-    /// <para><b>This endpoint is only needed for Authorization Code or Authorization Code with PKCE.</b></para>
-    ///
-    /// <para>The purposes of this endpoint is to render an authentication form for the user to enter their credentials.</para>
-    ///
-    /// <para>The content of this login form will be rendered by Templafy in a pop-up window once the users pressed the "Log in" button.</para>
-    ///
-    /// <para>The hidden fields are added as a convenience for the sake of this implementation as a means to be leveraged
-    /// in <see cref="UserApi.HandleUserLogin"/> (which is the handler of the endpoint "/login" called once the "Login" button is pressed) and by no means
-    /// represent industry standards or security guidelines.</para>
-    /// </summary>
-    /// <param name="request">The URL query parameters Templafy is sending for this request are deconstructed on lines 24-29</param>
-    /// <returns></returns>
     public static IResult RenderAuthorizationForm(HttpRequest request)
     {
         var query = request.Query;
@@ -24,6 +11,7 @@ public static class AuthorizationApi
         var responseType = query["response_type"];
         var clientId = query["client_id"];
         var state = query["state"];
+        var scope = query["scope"];
         var redirectUri = query["redirect_uri"];
         var codeChallenge = query["code_challenge"];
         var codeChallengeMethod = query["code_challenge_method"];
