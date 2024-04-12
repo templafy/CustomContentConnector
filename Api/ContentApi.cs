@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Primitives;
 using System.Text.Json.Serialization;
 
 namespace CustomContentConnectorExample.Api;
