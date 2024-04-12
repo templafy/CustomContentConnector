@@ -5,7 +5,7 @@ RUN dotnet restore "CustomContentConnectorExample.csproj"
 COPY . .
 RUN dotnet publish "CustomContentConnectorExample.csproj" -c Release -o /publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine as runtime-env
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine as runtime-env
 WORKDIR /app
 COPY --from=build-env /publish .
 

@@ -121,4 +121,4 @@ when setting up the Connector in the Templafy Admin.
 
 The same `Dockerfile` can be used to run the image locally using Docker
 Desktop (https://www.docker.com/products/docker-desktop/).
-Alternatively the code can be run using .NET 7 SDK (https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
+Alternatively the code can be run using .NET 8 SDK (https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
