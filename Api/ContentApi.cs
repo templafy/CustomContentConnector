@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Primitives;
 using System.Text.Json.Serialization;
 
 namespace CustomContentConnectorExample.Api;
@@ -18,32 +20,8 @@ public static class ContentApi
 
         if (IsAuthorized(request) && contentType == "image")
         {
-            //gets all files+directories for a given path and orders them in such a way that directories are first
-            var entriesOnCurrentLevel = Directory.EnumerateFileSystemEntries($"./FakeStorage/Images/{parentId}")
-                .Select(path => new FileInfo(path)).OrderBy(e => (e.Attributes & FileAttributes.Directory) == 0)
-                .ToList();
-
-            var filteredEntries = entriesOnCurrentLevel.Skip(skip).Take(limit).ToList();
-
-            var assets = new List<Asset>();
-            foreach (var fileInfo in filteredEntries)
-            {
-                assets.Add(new Asset
-                {
-                    Id = fileInfo.Name,
-                    MimeType = GetMimeType(fileInfo),
-                    Name = fileInfo.Name,
-                    PreviewUrl = $"{request.Scheme}://{request.Host}/download-asset/{fileInfo.Name}",
-                    Tags = "placeholder tag, other tag"
-                });
-            }
-
-            return Results.Ok(new ContentResponse
-            {
-                ContentCount = entriesOnCurrentLevel.Count,
-                Offset = skip + assets.Count,
-                Content = assets.ToArray()
-            });
+            var content = GetImages(request, search, parentId, skip, limit);
+            return Results.Ok(content);
         }
 
         return Results.Unauthorized();
@@ -64,6 +42,37 @@ public static class ContentApi
         return Results.File(fileStream);
     }
 
+
+    private static ContentResponse GetImages(HttpRequest request, string search, string parentId, int skip, int limit)
+    {
+        //gets all files+directories for a given path and orders them in such a way that directories are first
+        var entriesOnCurrentLevel = Directory.EnumerateFileSystemEntries($"./FakeStorage/Images/{parentId}")
+            .Select(path => new FileInfo(path)).OrderBy(e => (e.Attributes & FileAttributes.Directory) == 0)
+            .ToList();
+
+        var filteredEntries = entriesOnCurrentLevel.Skip(skip).Take(limit).ToList();
+
+        var assets = new List<Asset>();
+        foreach (var fileInfo in filteredEntries)
+        {
+            assets.Add(new Asset
+            {
+                Id = fileInfo.Name,
+                MimeType = GetMimeType(fileInfo),
+                Name = fileInfo.Name,
+                PreviewUrl = $"{request.Scheme}://{request.Host}/download-asset/{fileInfo.Name}",
+                Tags = "placeholder tag, other tag"
+            });
+        }
+
+        return new ContentResponse
+        {
+            ContentCount = entriesOnCurrentLevel.Count,
+            Offset = skip + assets.Count,
+            Content = assets.ToArray()
+        };
+    }
+
     private static bool IsAuthorized(HttpRequest request)
     {
         var authorizationHeader = request.Headers.Authorization;
@@ -81,10 +90,10 @@ public static class ContentApi
     {
         return fileInfo switch
         {
-            {Extension: ".svg"} => Constants.TemplafyAcceptedMimeTypes.Svg,
-            {Extension: ".png"} => Constants.TemplafyAcceptedMimeTypes.Png,
-            {Extension: ".jpg"} => Constants.TemplafyAcceptedMimeTypes.Jpg,
-            {Attributes: FileAttributes.Directory} => Constants.TemplafyAcceptedMimeTypes.Folder,
+            { Extension: ".svg" } => Constants.TemplafyAcceptedMimeTypes.Svg,
+            { Extension: ".png" } => Constants.TemplafyAcceptedMimeTypes.Png,
+            { Extension: ".jpg" } => Constants.TemplafyAcceptedMimeTypes.Jpg,
+            { Attributes: FileAttributes.Directory } => Constants.TemplafyAcceptedMimeTypes.Folder,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
