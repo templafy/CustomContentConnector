@@ -59,7 +59,8 @@ public static class ContentApi
                 MimeType = GetMimeType(fileInfo),
                 Name = fileInfo.Name,
                 PreviewUrl = $"{request.Scheme}://{request.Host}/download-asset/{fileInfo.Name}",
-                Tags = "placeholder tag, other tag"
+                Tags = "placeholder tag, other tag",
+                AltText = "Description of image"
             });
         }
 
@@ -117,6 +118,8 @@ public record Asset
     [JsonPropertyName("previewUrl")] public string? PreviewUrl { get; set; }
 
     [JsonPropertyName("tags")] public string? Tags { get; set; }
+
+    [JsonPropertyName("altText")] public string? AltText { get; set; }
 }
 
 public record DownloadUrlResponse
