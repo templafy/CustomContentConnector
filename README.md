@@ -114,7 +114,7 @@ All the property names, query/ body parameters and mime types from this example 
 
 Templafy connectors cannot point to `localhost` due to security reasons, to circumvent this mechanism, a `Dockerfile`
 which exposes the app on port `7225` exists in this example. The image should be build and deployed to a service like
-Google Cloud Run, Azure, AWS, etc. After deployment the URL pointing to the image instance should be used as "Base url"
+Google Cloud Run, Azure, AWS, etc. After deployment the URL pointing to the container instance should be used as "Base url"
 when setting up the Connector in the Templafy Admin.
 
 # Run the example locally using postman
