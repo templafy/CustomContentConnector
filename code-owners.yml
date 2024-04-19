@@ -1,0 +1,16 @@
+owners:
+  - Library
+branchPolicy:
+  buildValidations:
+  - buildName: CustomContentConnector
+    manualTrigger: false
+    displayName: ''
+    pathFilters: []
+    required: true
+  statusChecks: []
+  autoReviewers:
+  - reviewer: Library
+    isGroup: true
+    pathFilters: []
+    required: true
+    numReviewers: 1
