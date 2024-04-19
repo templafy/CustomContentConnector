@@ -53,14 +53,16 @@ public static class ContentApi
         var assets = new List<Asset>();
         foreach (var fileInfo in filteredEntries)
         {
+            var mimeType = GetMimeType(fileInfo);
+            var supportsAltText = Constants.TemplafyAcceptedMimeTypes.AssetsAcceptingMimeType.Contains(mimeType);
             assets.Add(new Asset
             {
                 Id = fileInfo.Name,
-                MimeType = GetMimeType(fileInfo),
+                MimeType = mimeType,
                 Name = fileInfo.Name,
                 PreviewUrl = $"{request.Scheme}://{request.Host}/download-asset/{fileInfo.Name}",
                 Tags = "placeholder tag, other tag",
-                AltText = "Description of image"
+                AltText = supportsAltText ? "Description of image" : null,
             });
         }
 

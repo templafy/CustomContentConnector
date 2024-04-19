@@ -36,5 +36,7 @@ public static class Constants
         public const string Pdf = "application/pdf";
         public const string Docx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
         public const string Pptx = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+
+        public static readonly string[] AssetsAcceptingMimeType = [Jpg, Png, Svg, Pptx];
     }
 }
