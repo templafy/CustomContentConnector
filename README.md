@@ -80,7 +80,8 @@ The following endpoints are required by Templafy:
                 "name": "Computer",
                 "mimeType": "image/png",
                 "previewUrl": "https://example.com/asset/1/preview",
-                "tags": "computer,office,workplace"
+                "tags": "computer,office,workplace",
+                "altTex": "Description of image"
             }
         ],
         "contentCount": 100,
