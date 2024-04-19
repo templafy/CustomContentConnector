@@ -12,8 +12,8 @@ variables:
 
 steps:
 - checkout: self
-        fetchDepth: 0
-        fetchTags: true
+  fetchDepth: 0
+  fetchTags: true
 - task: gitversion/setup@0
   displayName: Install GitVersion
   inputs:
