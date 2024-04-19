@@ -26,7 +26,7 @@ The following endpoints are required by Templafy:
       is https://public.templafy.com/integrations/oauth/login-callback.
     * `code_challenge_method`: This will be sent only for the `authorization_code` `grant_type` and will specify the
       algorithm used to generate the code challenge. Currently is `S256`, standing for SHA-256.
-    * `code_verifier`: This will be sent only for the `authorization_code` `grant_type` ans is the one time generated
+    * `code_verifier`: This will be sent only for the `authorization_code` `grant_type` as is the one time generated
       code verifier which was used to generate the `code_challenge`.
 
    The response of this endpoint should be a JSON object with the following structure:
@@ -81,7 +81,7 @@ The following endpoints are required by Templafy:
                 "mimeType": "image/png",
                 "previewUrl": "https://example.com/asset/1/preview",
                 "tags": "computer,office,workplace",
-                "altTex": "Description of image"
+                "altTex": "Description of image"  //optional
             }
         ],
         "contentCount": 100,
