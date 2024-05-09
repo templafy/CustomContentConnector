@@ -29,7 +29,7 @@ public static class ContentApi
     {
         return Results.Ok(new DownloadUrlResponse
         {
-            DownloadUrl = $"{request.Scheme}://{request.Host}/download-asset/{assetId}"
+            DownloadUrl = $"https://{request.Host}/download-asset/{assetId}"
         });
     }
 
