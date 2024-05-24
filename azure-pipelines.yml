@@ -37,4 +37,5 @@ steps:
     azureSubscription: 'Templafy Local ResourceGroup Automated'
     acrName: 'customcontentconnectorapicontainerregistry'
     containerAppName: 'custom-content-connector-api'
+    imageToBuild: 'customcontentconnectorapicontainerregistry.azurecr.io/custom-content-connector-api'
     resourceGroup: 'Local'
