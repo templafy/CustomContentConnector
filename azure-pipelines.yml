@@ -29,3 +29,13 @@ steps:
 
 - script: 'git push https://$(GitHubToken)@github.com/templafy/CustomContentConnector.git'
   displayName: Push to GitHub
+
+- task: AzureContainerApps@1
+  displayName: 'Deploy to Azure Container Apps'
+  inputs:
+    appSourcePath: '$(Build.SourcesDirectory)'
+    azureSubscription: 'Templafy Local ResourceGroup Automated'
+    acrName: 'customcontentconnectorapicontainerregistry'
+    containerAppName: 'custom-content-connector-api'
+    imageToBuild: 'customcontentconnectorapicontainerregistry.azurecr.io/custom-content-connector-api'
+    resourceGroup: 'Local'
