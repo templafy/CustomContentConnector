@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <metadata>
+    <comment>This is a test comment within the SVG metadata.</comment>
+  </metadata>
+  <rect width="100" height="100" fill="red" />
+  <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="blue" />
+  <text x="50" y="50" font-size="12" text-anchor="middle" fill="white" dy=".3em">Test SVG</text>
+</svg>
