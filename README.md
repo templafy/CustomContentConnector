@@ -68,7 +68,6 @@ The following endpoints are required by Templafy:
 
    The following headers will be sent by Templafy to this endpoint:
     * `Authorization`: The `access_token` received from the `/oauth/token` endpoint formatted `Bearer {access_token}`.
-    * `x-TemplafyUser`: The email of the user who is logged in to Templafy.
 
    The response of this endpoint should be a JSON object with the following structure:
 
@@ -92,7 +91,6 @@ The following endpoints are required by Templafy:
 
    The following headers will be sent by Templafy to this endpoint:
     * `Authorization`: The `access_token` received from the `/oauth/token` endpoint formatted `Bearer {access_token}`.
-    * `x-TemplafyUser`: The email of the user who is logged in to Templafy.
 
    The response of this endpoint should be a JSON object with the following structure:
     ```json
