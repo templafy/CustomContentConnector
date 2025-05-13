@@ -14,8 +14,6 @@ public static class ContentApi
         var search = query["search"];
         var parentId = query["parentId"];
 
-        var templafyUser = headers["x-TemplafyUser"];
-
         if (IsAuthorized(request) && contentType == "image")
         {
             var content = GetImages(request, search, parentId, skip, limit);
