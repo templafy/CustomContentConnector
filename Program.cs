@@ -1,4 +1,4 @@
-﻿using CustomContentConnectorExample.Api;
+using CustomContentConnectorExample.Api;
 
 var builder = WebApplication.CreateBuilder();
 var app = builder.Build();
