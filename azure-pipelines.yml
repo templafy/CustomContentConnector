@@ -22,6 +22,8 @@ steps:
   fetchDepth: 0
   fetchTags: true
 
+- template: pipeline-templates/check-text-files.yml@templates
+
 - template: pipeline-templates/gitversion-task.yml@templates
   parameters:
     gitVersionVersion: $(gitVersionVersion)
